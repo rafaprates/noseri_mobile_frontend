@@ -1,16 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:noseri_app/custom_widgets/load_dropdown_button.dart';
+import 'package:noseri_app/subscriber_series.dart';
 import 'package:noseri_app/utilities/constants.dart';
 import 'package:noseri_app/custom_widgets/date_range_picker.dart';
 import 'package:noseri_app/services/networking.dart';
-import 'package:noseri_app/custom_widgets/chart.dart';
+import 'package:noseri_app/custom_widgets/kwh_chart.dart';
 import 'package:charts_flutter/flutter.dart';
+
+import 'package:noseri_app/subscriber_series.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:noseri_app/subscriber_chart.dart';
+
 
 class HomeScreen extends StatelessWidget {
   NetworkHelper? networkHelper = NetworkHelper();
-  String? de;
-  String? para;
-  String? load;
+
+  final List<SubscriberSeries> data = [
+    SubscriberSeries(year: "2008",
+        subscribers: 50,
+        color: charts.ColorUtil.fromDartColor(Colors.blue)),
+    SubscriberSeries(year: "2009",
+        subscribers: 20,
+        color: charts.ColorUtil.fromDartColor(Colors.blue)),
+    SubscriberSeries(year: "2010",
+        subscribers: 30,
+        color: charts.ColorUtil.fromDartColor(Colors.blue)),
+    SubscriberSeries(year: "2011",
+        subscribers: 80,
+        color: charts.ColorUtil.fromDartColor(Colors.blue)),
+    SubscriberSeries(year: "2012",
+        subscribers: 50,
+        color: charts.ColorUtil.fromDartColor(Colors.blue)),
+    SubscriberSeries(year: "2013",
+        subscribers: 30,
+        color: charts.ColorUtil.fromDartColor(Colors.blue)),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +66,15 @@ class HomeScreen extends StatelessWidget {
             SizedBox(height: 5.0),
             DateRangePicker(networkHelper),
             SizedBox(height: 15.0),
-            ElevatedButton(onPressed: () {}, child: Text('Atualizar gráfico')),
+            ElevatedButton(
+                onPressed: () {
+                  print(
+                      '.../api/Usuario/kwh?load=${networkHelper?.load}&tsStart=${networkHelper?.from}&tsEnd=${networkHelper?.until}');
+                },
+                child: Text('Atualizar gráfico')),
             SizedBox(height: 15.0),
-            Expanded(child: Container(color: Colors.white)),
+            //Expanded(child:Container(decoration: BoxDecoration(border: Border.all()))),
+            Expanded(child: SubscriberChart(data: data)),
             //SimpleBarChart(animate: false),
           ],
         ),
