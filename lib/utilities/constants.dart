@@ -23,3 +23,5 @@ const kHeaderSmallTextStyle = TextStyle(
 const kElevatedButtonTextStyle = TextStyle(
   color: Colors.black,
 );
+
+const kUfmtLogoUrl = 'https://www.ufmt.br/assets/images/icons/Logos/logo_vertical.png';

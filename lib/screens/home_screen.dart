@@ -1,40 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:noseri_app/custom_widgets/load_dropdown_button.dart';
-import 'package:noseri_app/subscriber_series.dart';
 import 'package:noseri_app/utilities/constants.dart';
 import 'package:noseri_app/custom_widgets/date_range_picker.dart';
 import 'package:noseri_app/services/networking.dart';
 import 'package:noseri_app/custom_widgets/kwh_chart.dart';
-import 'package:charts_flutter/flutter.dart';
-
-import 'package:noseri_app/subscriber_series.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:noseri_app/subscriber_chart.dart';
 
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  HomeScreen(this.kwhData);
+  final kwhData;
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   NetworkHelper? networkHelper = NetworkHelper();
-
-  final List<SubscriberSeries> data = [
-    SubscriberSeries(year: "2008",
-        subscribers: 50,
-        color: charts.ColorUtil.fromDartColor(Colors.blue)),
-    SubscriberSeries(year: "2009",
-        subscribers: 20,
-        color: charts.ColorUtil.fromDartColor(Colors.blue)),
-    SubscriberSeries(year: "2010",
-        subscribers: 30,
-        color: charts.ColorUtil.fromDartColor(Colors.blue)),
-    SubscriberSeries(year: "2011",
-        subscribers: 80,
-        color: charts.ColorUtil.fromDartColor(Colors.blue)),
-    SubscriberSeries(year: "2012",
-        subscribers: 50,
-        color: charts.ColorUtil.fromDartColor(Colors.blue)),
-    SubscriberSeries(year: "2013",
-        subscribers: 30,
-        color: charts.ColorUtil.fromDartColor(Colors.blue)),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +24,7 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         leading: Padding(
           padding: const EdgeInsets.all(4.0),
-          child: Image.network(
-            'https://www.ufmt.br/assets/images/icons/Logos/logo_vertical.png',
-          ),
+          child: Image.network(kUfmtLogoUrl),
         ),
         title: Text('NOSERI - UFMT'),
       ),
@@ -68,17 +47,52 @@ class HomeScreen extends StatelessWidget {
             SizedBox(height: 15.0),
             ElevatedButton(
                 onPressed: () {
-                  print(
-                      '.../api/Usuario/kwh?load=${networkHelper?.load}&tsStart=${networkHelper?.from}&tsEnd=${networkHelper?.until}');
+                  /*
+                  print('.../api/Usuario/kwh?load=${networkHelper?.load}&tsStart=${networkHelper?.from}&tsEnd=${networkHelper?.until}');
+                  print('data: $data');
+                  print('kwhData: ${widget.kwhData}');
+                  */
+                  Navigator.pop(context);
                 },
                 child: Text('Atualizar gráfico')),
             SizedBox(height: 15.0),
             //Expanded(child:Container(decoration: BoxDecoration(border: Border.all()))),
-            Expanded(child: SubscriberChart(data: data)),
-            //SimpleBarChart(animate: false),
+            Expanded(
+              child: KwhChart(data: widget.kwhData),
+            ),
           ],
         ),
       ),
     );
   }
 }
+
+/*
+  final List<SubscriberSeries> data = [
+
+    SubscriberSeries(
+        year: "2008",
+        subscribers: 50,
+        color: charts.ColorUtil.fromDartColor(Colors.blue)),
+    SubscriberSeries(
+        year: "2009",
+        subscribers: 20,
+        color: charts.ColorUtil.fromDartColor(Colors.blue)),
+    SubscriberSeries(
+        year: "2010",
+        subscribers: 30,
+        color: charts.ColorUtil.fromDartColor(Colors.blue)),
+    SubscriberSeries(
+        year: "2011",
+        subscribers: 80,
+        color: charts.ColorUtil.fromDartColor(Colors.blue)),
+    SubscriberSeries(
+        year: "2012",
+        subscribers: 50,
+        color: charts.ColorUtil.fromDartColor(Colors.blue)),
+    SubscriberSeries(
+        year: "2013",
+        subscribers: 30,
+        color: charts.ColorUtil.fromDartColor(Colors.blue)),
+  ];
+*/
