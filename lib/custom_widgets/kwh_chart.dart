@@ -4,7 +4,7 @@ import 'package:noseri_app/subscriber_series.dart';
 import 'package:noseri_app/services/kwh_series.dart';
 
 class KwhChart extends StatelessWidget {
-  final List<KwhSeries> data;
+  final List<KwhSeries>? data;
 
   KwhChart({required this.data});
 

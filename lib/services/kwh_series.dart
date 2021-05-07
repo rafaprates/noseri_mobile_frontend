@@ -4,7 +4,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 
 class KwhSeries {
   final String day;
-  final int kwh;
+  final double kwh;
   final charts.Color color;
 
   KwhSeries({

@@ -10,31 +10,53 @@ import 'package:charts_flutter/flutter.dart';
 import 'package:noseri_app/subscriber_series.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:noseri_app/subscriber_chart.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:noseri_app/services/kwh_series.dart';
+import 'dart:async';
+
+class HomeScreen extends StatefulWidget {
+
+  HomeScreen(this.kwhData);
+  final kwhData;
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
 
 
-class HomeScreen extends StatelessWidget {
+
   NetworkHelper? networkHelper = NetworkHelper();
 
   final List<SubscriberSeries> data = [
-    SubscriberSeries(year: "2008",
+    SubscriberSeries(
+        year: "2008",
         subscribers: 50,
         color: charts.ColorUtil.fromDartColor(Colors.blue)),
-    SubscriberSeries(year: "2009",
+    SubscriberSeries(
+        year: "2009",
         subscribers: 20,
         color: charts.ColorUtil.fromDartColor(Colors.blue)),
-    SubscriberSeries(year: "2010",
+    SubscriberSeries(
+        year: "2010",
         subscribers: 30,
         color: charts.ColorUtil.fromDartColor(Colors.blue)),
-    SubscriberSeries(year: "2011",
+    SubscriberSeries(
+        year: "2011",
         subscribers: 80,
         color: charts.ColorUtil.fromDartColor(Colors.blue)),
-    SubscriberSeries(year: "2012",
+    SubscriberSeries(
+        year: "2012",
         subscribers: 50,
         color: charts.ColorUtil.fromDartColor(Colors.blue)),
-    SubscriberSeries(year: "2013",
+    SubscriberSeries(
+        year: "2013",
         subscribers: 30,
         color: charts.ColorUtil.fromDartColor(Colors.blue)),
   ];
+
 
   @override
   Widget build(BuildContext context) {
@@ -68,13 +90,18 @@ class HomeScreen extends StatelessWidget {
             SizedBox(height: 15.0),
             ElevatedButton(
                 onPressed: () {
-                  print(
-                      '.../api/Usuario/kwh?load=${networkHelper?.load}&tsStart=${networkHelper?.from}&tsEnd=${networkHelper?.until}');
+                  /*                  
+                  print('.../api/Usuario/kwh?load=${networkHelper?.load}&tsStart=${networkHelper?.from}&tsEnd=${networkHelper?.until}');
+                  print('data: $data');
+                  print('kwhData: ${widget.kwhData}');
+                  */
+                  Navigator.pop(context);
                 },
                 child: Text('Atualizar gráfico')),
             SizedBox(height: 15.0),
             //Expanded(child:Container(decoration: BoxDecoration(border: Border.all()))),
-            Expanded(child: SubscriberChart(data: data)),
+            //Expanded(child: SubscriberChart(data: data)),
+            Expanded(child: KwhChart(data: widget.kwhData),),
             //SimpleBarChart(animate: false),
           ],
         ),
