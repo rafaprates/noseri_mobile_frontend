@@ -1,11 +1,11 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
-import 'package:noseri_app/custom_widgets/bottom_navigation.dart';
 import 'package:noseri_app/custom_widgets/chart_card.dart';
 import 'package:noseri_app/services/kwh_series.dart';
+import 'package:noseri_app/services/pie_chart_series.dart';
 import 'package:noseri_app/utilities/constants.dart';
 
-class ChartScreen extends StatefulWidget {
+class SummaryChartScreen extends StatefulWidget {
   final List<KwhSeries> weekData = [
     KwhSeries(
         day: "Dom", kwh: 2, color: charts.ColorUtil.fromDartColor(Colors.blue)),
@@ -149,16 +149,21 @@ class ChartScreen extends StatefulWidget {
         day: "23", kwh: 3, color: charts.ColorUtil.fromDartColor(Colors.blue)),
   ];
 
+  final List<LinearSales> data = [
+    LinearSales(0, 20),
+    LinearSales(1, 30),
+    LinearSales(3, 10),
+    LinearSales(3, 40),
+  ];
+
   @override
-  _ChartScreenState createState() => _ChartScreenState();
+  _SummaryChartScreenState createState() => _SummaryChartScreenState();
 }
 
-class _ChartScreenState extends State<ChartScreen> {
+class _SummaryChartScreenState extends State<SummaryChartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavigation(),
-      backgroundColor: Colors.grey[300],
       appBar: AppBar(
         title: Text("NOSERI - UFMT"),
       ),
@@ -170,18 +175,10 @@ class _ChartScreenState extends State<ChartScreen> {
           SizedBox(height: kSpaceBetweenCols),
           info_summary_card(title: "Media diaria: ", value: "13"),
           SizedBox(height: kSpaceBetweenCols),
-          ChartCard(
-            title: "Hoje",
-            data: widget.todayData,
-          ),
-          ChartCard(
-            title: "Ultimos 7 dias",
-            data: widget.weekData,
-          ),
-          ChartCard(
-            title: "Ultimos 30 dias",
-            data: widget.monthData,
-          ),
+          ChartCard(title: "Hoje", data: widget.todayData),
+          ChartCard(title: "Ultimos 7 dias", data: widget.weekData),
+          ChartCard(title: "Ultimos 30 dias", data: widget.monthData),
+          //DatumLegendWithMeasures(widget.data),
         ],
       ),
     );

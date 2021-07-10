@@ -1,8 +1,13 @@
+/*
 import 'package:flutter/material.dart';
-import 'package:noseri_app/screens/chart_screen.dart';
+import 'package:noseri_app/screens/charts/summary_chart_screen.dart';
 import 'package:noseri_app/screens/home_screen.dart';
 
 class BottomNavigation extends StatefulWidget {
+  final int index;
+
+  BottomNavigation({required this.index});
+
   @override
   _BottomNavigationState createState() => _BottomNavigationState();
 }
@@ -11,7 +16,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
   int _currentIndex = 0;
 
   List<Widget> pageList = <Widget>[
-    ChartScreen(),
+    SummaryChartScreen(),
     HomeScreen(),
   ];
 
@@ -38,9 +43,10 @@ class _BottomNavigationState extends State<BottomNavigation> {
       ],
       onTap: (index) {
         setState(() {
-          _currentIndex = index;
+          _currentIndex = widget.index;
         });
       },
     );
   }
 }
+*/

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:noseri_app/screens/chart_screen.dart';
+import 'package:noseri_app/screens/charts/summary_chart_screen.dart';
+import 'package:noseri_app/screens/main/main_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
@@ -29,7 +30,7 @@ class LoginScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ChartScreen(),
+                    builder: (context) => MainScreen(),
                   ),
                 );
               },
@@ -44,7 +45,7 @@ class LoginScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ChartScreen(),
+                    builder: (context) => SummaryChartScreen(),
                   ),
                 );
               },
