@@ -5,6 +5,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:noseri_app/screens/home_screen.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:noseri_app/services/networking.dart';
+import 'package:noseri_app/screens/chart_screen.dart';
 
 
 
@@ -45,7 +46,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => HomeScreen(kwhData),
+          builder: (context) => ChartScreen(),
         ),
       );
     }

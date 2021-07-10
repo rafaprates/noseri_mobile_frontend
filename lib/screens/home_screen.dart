@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:noseri_app/custom_widgets/load_dropdown_button.dart';
-import 'package:noseri_app/utilities/constants.dart';
 import 'package:noseri_app/custom_widgets/date_range_picker.dart';
+import 'package:noseri_app/custom_widgets/load_dropdown_button.dart';
 import 'package:noseri_app/services/networking.dart';
-import 'package:noseri_app/custom_widgets/kwh_chart.dart';
-
+import 'package:noseri_app/utilities/constants.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen(this.kwhData);
-  final kwhData;
+  //HomeScreen(this.kwhData);
+  //final kwhData;
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -23,9 +21,8 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
         leading: Padding(
-          padding: const EdgeInsets.all(4.0),
-          child: Image.network(kUfmtLogoUrl),
-        ),
+            padding: const EdgeInsets.all(4.0),
+            child: Image.network(kUfmtLogoUrl)),
         title: Text('NOSERI - UFMT'),
       ),
       body: Padding(
@@ -40,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Expanded(child: loadDropdownButton(networkHelper)),
               ],
             ),
-            SizedBox(height: 15.0),
+            SizedBox(height: kSpaceBetweenCols),
             Text('Intervalo de Tempo:', style: kLabelTextStyle),
             SizedBox(height: 5.0),
             DateRangePicker(networkHelper),
@@ -55,11 +52,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.pop(context);
                 },
                 child: Text('Atualizar gráfico')),
-            SizedBox(height: 15.0),
+            SizedBox(height: kSpaceBetweenCols),
             //Expanded(child:Container(decoration: BoxDecoration(border: Border.all()))),
-            Expanded(
-              child: KwhChart(data: widget.kwhData),
-            ),
+            //Expanded(
+            //child: KwhChart(data: widget.kwhData),
+            //),
           ],
         ),
       ),

@@ -5,12 +5,10 @@ import 'package:noseri_app/services/kwh_series.dart';
 
 class KwhChart extends StatelessWidget {
   final List<KwhSeries>? data;
-
   KwhChart({required this.data});
 
   @override
   Widget build(BuildContext context) {
-
     List<charts.Series<KwhSeries, String>> series = [
       charts.Series(
         id: "Subscribers",

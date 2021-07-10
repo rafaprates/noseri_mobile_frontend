@@ -1,12 +1,15 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
-import 'package:noseri_app/custom_widgets/bottom_navigation.dart';
-import 'package:noseri_app/custom_widgets/chart_card.dart';
+import 'package:noseri_app/custom_widgets/kwh_chart.dart';
 import 'package:noseri_app/services/kwh_series.dart';
 import 'package:noseri_app/utilities/constants.dart';
 
-class ChartScreen extends StatefulWidget {
-  final List<KwhSeries> weekData = [
+class ChartCard extends StatefulWidget {
+  final String title;
+  final data;
+  ChartCard({required this.title, required this.data});
+
+  final List<KwhSeries> Weekdata = [
     KwhSeries(
         day: "Dom", kwh: 2, color: charts.ColorUtil.fromDartColor(Colors.blue)),
     KwhSeries(
@@ -98,112 +101,28 @@ class ChartScreen extends StatefulWidget {
         day: "31", kwh: 19, color: charts.ColorUtil.fromDartColor(Colors.blue)),
   ];
 
-  final List<KwhSeries> todayData = [
-    KwhSeries(
-        day: "00", kwh: 2, color: charts.ColorUtil.fromDartColor(Colors.blue)),
-    KwhSeries(
-        day: "01", kwh: 3, color: charts.ColorUtil.fromDartColor(Colors.blue)),
-    KwhSeries(
-        day: "02", kwh: 2, color: charts.ColorUtil.fromDartColor(Colors.blue)),
-    KwhSeries(
-        day: "03", kwh: 4, color: charts.ColorUtil.fromDartColor(Colors.blue)),
-    KwhSeries(
-        day: "04", kwh: 1, color: charts.ColorUtil.fromDartColor(Colors.blue)),
-    KwhSeries(
-        day: "05", kwh: 2, color: charts.ColorUtil.fromDartColor(Colors.blue)),
-    KwhSeries(
-        day: "06", kwh: 3, color: charts.ColorUtil.fromDartColor(Colors.blue)),
-    KwhSeries(
-        day: "07", kwh: 1, color: charts.ColorUtil.fromDartColor(Colors.blue)),
-    KwhSeries(
-        day: "08", kwh: 2, color: charts.ColorUtil.fromDartColor(Colors.blue)),
-    KwhSeries(
-        day: "09", kwh: 5, color: charts.ColorUtil.fromDartColor(Colors.blue)),
-    KwhSeries(
-        day: "10", kwh: 2, color: charts.ColorUtil.fromDartColor(Colors.blue)),
-    KwhSeries(
-        day: "11", kwh: 3, color: charts.ColorUtil.fromDartColor(Colors.blue)),
-    KwhSeries(
-        day: "12", kwh: 1, color: charts.ColorUtil.fromDartColor(Colors.blue)),
-    KwhSeries(
-        day: "13", kwh: 3, color: charts.ColorUtil.fromDartColor(Colors.blue)),
-    KwhSeries(
-        day: "14", kwh: 1, color: charts.ColorUtil.fromDartColor(Colors.blue)),
-    KwhSeries(
-        day: "15", kwh: 2, color: charts.ColorUtil.fromDartColor(Colors.blue)),
-    KwhSeries(
-        day: "16", kwh: 5, color: charts.ColorUtil.fromDartColor(Colors.blue)),
-    KwhSeries(
-        day: "17", kwh: 1, color: charts.ColorUtil.fromDartColor(Colors.blue)),
-    KwhSeries(
-        day: "18", kwh: 1, color: charts.ColorUtil.fromDartColor(Colors.blue)),
-    KwhSeries(
-        day: "19", kwh: 2, color: charts.ColorUtil.fromDartColor(Colors.blue)),
-    KwhSeries(
-        day: "20", kwh: 3, color: charts.ColorUtil.fromDartColor(Colors.blue)),
-    KwhSeries(
-        day: "21", kwh: 4, color: charts.ColorUtil.fromDartColor(Colors.blue)),
-    KwhSeries(
-        day: "22", kwh: 1, color: charts.ColorUtil.fromDartColor(Colors.blue)),
-    KwhSeries(
-        day: "23", kwh: 3, color: charts.ColorUtil.fromDartColor(Colors.blue)),
-  ];
-
   @override
-  _ChartScreenState createState() => _ChartScreenState();
+  _ChartCardState createState() => _ChartCardState();
 }
 
-class _ChartScreenState extends State<ChartScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: BottomNavigation(),
-      backgroundColor: Colors.grey[300],
-      appBar: AppBar(
-        title: Text("NOSERI - UFMT"),
-      ),
-      body: ListView(
-        padding: const EdgeInsets.all(8),
-        children: <Widget>[
-          SizedBox(height: kSpaceBetweenCols),
-          info_summary_card(title: "Consumo este mes: ", value: "300"),
-          SizedBox(height: kSpaceBetweenCols),
-          info_summary_card(title: "Media diaria: ", value: "13"),
-          SizedBox(height: kSpaceBetweenCols),
-          ChartCard(
-            title: "Hoje",
-            data: widget.todayData,
-          ),
-          ChartCard(
-            title: "Ultimos 7 dias",
-            data: widget.weekData,
-          ),
-          ChartCard(
-            title: "Ultimos 30 dias",
-            data: widget.monthData,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class info_summary_card extends StatelessWidget {
-  final String title;
-  final String value;
-  const info_summary_card({required this.title, required this.value});
-
+class _ChartCardState extends State<ChartCard> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: Row(
-          children: [
-            Text(title, style: kLabelTextStyle),
-            Text(value, style: kLabelTextStyle),
-            Text(" kWh", style: kLabelTextStyle),
-          ],
+      child: Card(
+        child: Container(
+          height: 300.0,
+          padding: EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              SizedBox(height: kSpaceBetweenCols),
+              Text(
+                widget.title,
+                style: kChartLabelTextStyle,
+              ),
+              Expanded(child: KwhChart(data: widget.data))
+            ],
+          ),
         ),
       ),
     );
