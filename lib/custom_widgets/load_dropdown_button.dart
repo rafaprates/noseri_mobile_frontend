@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:noseri_app/utilities/constants.dart';
 import 'package:noseri_app/services/networking.dart';
+import 'package:noseri_app/utilities/constants.dart';
 
 class loadDropdownButton extends StatefulWidget {
-
   NetworkHelper? networkHelper;
   loadDropdownButton(this.networkHelper);
 
@@ -11,11 +10,9 @@ class loadDropdownButton extends StatefulWidget {
   _loadDropdownButtonState createState() => _loadDropdownButtonState();
 }
 
-/// This is the private State class that goes with MyStatefulWidget.
 class _loadDropdownButtonState extends State<loadDropdownButton> {
   String dropdownValue = 'Geladeira';
   @override
-
   Widget build(BuildContext context) {
     widget.networkHelper?.load = dropdownValue;
     return DropdownButton<String>(

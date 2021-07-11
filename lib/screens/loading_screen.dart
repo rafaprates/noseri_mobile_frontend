@@ -34,7 +34,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
       KwhSeries kwhSeries = KwhSeries(
         day: timestamp,
         kwh: kwh,
-        color: charts.ColorUtil.fromDartColor(Colors.blue),
+        barColor: charts.ColorUtil.fromDartColor(Colors.blue),
       );
       kwhData.add(kwhSeries);
     }

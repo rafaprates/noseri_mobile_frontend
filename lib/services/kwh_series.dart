@@ -1,15 +1,13 @@
- // ignore: import_of_legacy_library_into_null_safe
 import 'package:charts_flutter/flutter.dart' as charts;
-
 
 class KwhSeries {
   final String day;
   final double kwh;
-  final charts.Color color;
+  final charts.Color barColor;
 
   KwhSeries({
     required this.day,
     required this.kwh,
-    required this.color
+    required this.barColor,
   });
 }
