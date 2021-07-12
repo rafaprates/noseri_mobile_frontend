@@ -1,8 +1,11 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 import 'package:noseri_app/custom_widgets/chart_card.dart';
+import 'package:noseri_app/custom_widgets/charts/bar_chart.dart';
+import 'package:noseri_app/custom_widgets/charts/circular_chart.dart';
+import 'package:noseri_app/custom_widgets/info_summary_card.dart';
+import 'package:noseri_app/services/bar_chart_series.dart';
 import 'package:noseri_app/services/circular_chart_series.dart';
-import 'package:noseri_app/services/kwh_series.dart';
 import 'package:noseri_app/utilities/constants.dart';
 
 class SummaryChartScreen extends StatefulWidget {
@@ -264,24 +267,11 @@ class SummaryChartScreen extends StatefulWidget {
   ];
 
   final data = [
-    GradesData('Ar-condicionado', 190),
-    GradesData('Motor Induçao Trifasico', 230),
-    GradesData('Iluminacao', 150),
-    GradesData('Outros', 73),
+    kWhPerLoadData('Ar-condicionado', 190),
+    kWhPerLoadData('MIT', 230),
+    kWhPerLoadData('Iluminacao', 150),
+    kWhPerLoadData('Outros', 73),
   ];
-
-  _getSeriesData() {
-    List<charts.Series<GradesData, String>> series = [
-      charts.Series(
-          id: "Grades",
-          data: data,
-          labelAccessorFn: (GradesData row, _) =>
-              '${row.gradeSymbol}: ${row.numberOfStudents}',
-          domainFn: (GradesData grades, _) => grades.gradeSymbol,
-          measureFn: (GradesData grades, _) => grades.numberOfStudents)
-    ];
-    return series;
-  }
 
   @override
   _SummaryChartScreenState createState() => _SummaryChartScreenState();
@@ -291,9 +281,7 @@ class _SummaryChartScreenState extends State<SummaryChartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("NOSERI - UFMT"),
-      ),
+      appBar: AppBar(title: Text("NOSERI - UFMT")),
       body: ListView(
         padding: const EdgeInsets.all(8),
         children: <Widget>[
@@ -302,43 +290,20 @@ class _SummaryChartScreenState extends State<SummaryChartScreen> {
           SizedBox(height: kSpaceBetweenCols),
           info_summary_card(title: "Media diaria: ", value: "13"),
           SizedBox(height: kSpaceBetweenCols),
-          ChartCard(title: "Hoje", data: widget.todayData),
-          ChartCard(title: "Ultimos 7 dias", data: widget.weekData),
-          ChartCard(title: "Ultimos 30 dias", data: widget.monthData),
-          Container(
-            height: 200.0,
-            width: 200.0,
-            child: new charts.PieChart(
-              widget._getSeriesData(),
-              animate: true,
-              defaultRenderer: new charts.ArcRendererConfig(
-                  arcWidth: 60,
-                  arcRendererDecorators: [new charts.ArcLabelDecorator()]),
-            ),
+          ChartCard(
+            title: "Hoje",
+            child: BarChart(data: widget.todayData),
+          ),
+          ChartCard(
+              title: "Ultimos 7 dias", child: BarChart(data: widget.weekData)),
+          ChartCard(
+              title: "Ultimos 30 dias",
+              child: BarChart(data: widget.monthData)),
+          ChartCard(
+            title: "Consumo por carga (ultimos 30 dias)",
+            child: CircularChart(data: widget.data),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class info_summary_card extends StatelessWidget {
-  final String title;
-  final String value;
-  const info_summary_card({required this.title, required this.value});
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: Row(
-          children: [
-            Text(title, style: kLabelTextStyle),
-            Text(value, style: kLabelTextStyle),
-            Text(" kWh", style: kLabelTextStyle),
-          ],
-        ),
       ),
     );
   }

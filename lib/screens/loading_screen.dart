@@ -4,7 +4,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:noseri_app/screens/charts/summary_chart_screen.dart';
-import 'package:noseri_app/services/kwh_series.dart';
+import 'package:noseri_app/services/bar_chart_series.dart';
 import 'package:noseri_app/services/networking.dart';
 
 class LoadingScreen extends StatefulWidget {

@@ -1,6 +1,6 @@
-class GradesData {
-  final String gradeSymbol;
-  final int numberOfStudents;
+class kWhPerLoadData {
+  final String load;
+  final int kWh;
 
-  GradesData(this.gradeSymbol, this.numberOfStudents);
+  kWhPerLoadData(this.load, this.kWh);
 }

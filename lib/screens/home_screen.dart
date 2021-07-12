@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:noseri_app/screens/charts/summary_chart_screen.dart';
+import 'package:noseri_app/screens/main/main_screen.dart';
 import 'package:noseri_app/utilities/constants.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -18,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Image.network(kUfmtLogoUrl)),
         title: Text('NOSERI - UFMT'),
       ),
-      body: SummaryChartScreen(),
+      body: MainScreen(),
     );
   }
 }
