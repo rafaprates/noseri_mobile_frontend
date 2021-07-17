@@ -3,7 +3,6 @@ import 'package:noseri_app/services/networking.dart';
 import 'package:noseri_app/utilities/constants.dart';
 
 class DateRangePicker extends StatefulWidget {
-
   NetworkHelper? networkHelper;
   DateRangePicker(this.networkHelper);
 
@@ -12,7 +11,6 @@ class DateRangePicker extends StatefulWidget {
 }
 
 class _DateRangePickerState extends State<DateRangePicker> {
-  // For myself: the ? means the type can be null.
   DateTimeRange? dateRange;
 
   Future pickDateRange(BuildContext context) async {
@@ -33,12 +31,13 @@ class _DateRangePickerState extends State<DateRangePicker> {
     setState(() => dateRange = newDateRange);
   }
 
-
   String getFrom() {
     if (dateRange == null) {
       return 'De';
     } else {
-      widget.networkHelper?.from = '${dateRange?.start?.day}/${dateRange?.start?.month}/${dateRange?.start?.year}';
+      widget.networkHelper?.from =
+          '${dateRange?.start?.day}/${dateRange?.start?.month}/${dateRange?.start?.year}';
+      print(dateRange?.start);
       return '${dateRange?.start?.day}/${dateRange?.start?.month}/${dateRange?.start?.year}';
     }
   }
@@ -47,7 +46,8 @@ class _DateRangePickerState extends State<DateRangePicker> {
     if (dateRange == null) {
       return 'Até';
     } else {
-      widget.networkHelper?.until = '${dateRange?.end?.day}/${dateRange?.end?.month}/${dateRange?.end?.year}';
+      widget.networkHelper?.until =
+          '${dateRange?.end?.day}/${dateRange?.end?.month}/${dateRange?.end?.year}';
       return '${dateRange?.end?.day}/${dateRange?.end?.month}/${dateRange?.end?.year}';
     }
   }
@@ -56,21 +56,31 @@ class _DateRangePickerState extends State<DateRangePicker> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Text('De:', style: kHeaderSmallTextStyle,),
+        Text(
+          'De:',
+          style: kHeaderSmallTextStyle,
+        ),
         SizedBox(width: 10.0),
         Expanded(
           child: ElevatedButton(
-            style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.white)),
+            style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.white)),
             child: Text(getFrom(), style: kElevatedButtonTextStyle),
             onPressed: () => pickDateRange(context),
           ),
         ),
         SizedBox(width: 15.0),
-        Text('Até:', style: kHeaderSmallTextStyle,),
+        Text(
+          'Até:',
+          style: kHeaderSmallTextStyle,
+        ),
         SizedBox(width: 10.0),
         Expanded(
           child: ElevatedButton(
-            style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.white)),
+            style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.white)),
             child: Text(getUntil(), style: kElevatedButtonTextStyle),
             onPressed: () => pickDateRange(context),
           ),

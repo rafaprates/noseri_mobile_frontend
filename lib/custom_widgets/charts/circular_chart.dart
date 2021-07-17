@@ -1,6 +1,6 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
-import 'package:noseri_app/services/circular_chart_series.dart';
+import 'package:noseri_app/models/circular_chart_series.dart';
 
 class CircularChart extends StatelessWidget {
   final data;

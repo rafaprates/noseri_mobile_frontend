@@ -1,8 +1,6 @@
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class NetworkHelper {
-
   String? load;
   String? from;
   String? until;
@@ -20,8 +18,7 @@ class NetworkHelper {
 
   Future getData() async {
     http.Response response = await http.get(
-      Uri.parse(
-          "https://noseri-app-api.herokuapp.com/api/Rafael/kwh?load=geladeira"),
+      Uri.parse("https://noseri-api.herokuapp.com/api/flutter/kwh"),
     );
 
     if (response.statusCode == 200) {
@@ -29,6 +26,4 @@ class NetworkHelper {
       return response.body;
     } //TODO: implement the else clause
   }
-
-
 }

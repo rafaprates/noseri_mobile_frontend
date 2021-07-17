@@ -26,7 +26,7 @@ class AuthButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.symmetric(horizontal: 32.0),
+      padding: EdgeInsets.symmetric(horizontal: 50.0),
       child: ElevatedButton(
         child: Text(label),
         onPressed: () {
