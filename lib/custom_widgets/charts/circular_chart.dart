@@ -8,13 +8,14 @@ class CircularChart extends StatelessWidget {
   CircularChart({required this.data});
 
   _getSeriesData() {
-    List<charts.Series<kWhPerLoadData, String>> series = [
+    List<charts.Series<CircularChartSeries, String>> series = [
       charts.Series(
           id: "Grades",
           data: data,
-          labelAccessorFn: (kWhPerLoadData row, _) => '${row.load}: ${row.kWh}',
-          domainFn: (kWhPerLoadData grades, _) => grades.load,
-          measureFn: (kWhPerLoadData grades, _) => grades.kWh)
+          labelAccessorFn: (CircularChartSeries row, _) =>
+              '${row.load}: ${row.kwh}',
+          domainFn: (CircularChartSeries grades, _) => grades.load,
+          measureFn: (CircularChartSeries grades, _) => grades.kwh)
     ];
     return series;
   }

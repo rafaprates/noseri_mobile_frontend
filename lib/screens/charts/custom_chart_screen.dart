@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:noseri_app/custom_widgets/chart_card.dart';
-import 'package:noseri_app/custom_widgets/charts/bar_chart.dart';
+import 'package:noseri_app/custom_widgets/charts/chart_card.dart';
+import 'package:noseri_app/custom_widgets/charts/future_bar_chart_buider.dart';
 import 'package:noseri_app/custom_widgets/date_range_picker.dart';
 import 'package:noseri_app/custom_widgets/load_dropdown_button.dart';
 import 'package:noseri_app/models/bar_chart_series.dart';
@@ -48,9 +48,9 @@ class _CustomChartScreenState extends State<CustomChartScreen> {
       List<BarChartSeries> dataList = [];
       for (var d in jsonData) {
         BarChartSeries data =
-            BarChartSeries(day: d["timestamp"], kwh: d["kwh"]);
+            BarChartSeries(date: d["timestamp"], kwh: d["kwh"]);
         dataList.add(data);
-        print("data: ${data.day}");
+        print("data: ${data.date}");
       }
       return dataList;
     } else {
@@ -67,12 +67,9 @@ class _CustomChartScreenState extends State<CustomChartScreen> {
   }
 
   List<BarChartSeries> chartData = [
-    BarChartSeries(day: "", kwh: 0.0),
-    BarChartSeries(day: "", kwh: 0.0),
+    BarChartSeries(date: "", kwh: 0.0),
+    BarChartSeries(date: "", kwh: 0.0),
   ];
-
-  String title = "Inicializado";
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,7 +95,8 @@ class _CustomChartScreenState extends State<CustomChartScreen> {
             ElevatedButton(
               child: Text('Atualizar gráfico'),
               onPressed: () {
-                fetchData();
+                NetworkHelper().fetchBarData(
+                    'http://noseri-api.herokuapp.com/api/flutter/kwh');
                 setState(() {});
               },
             ),
@@ -106,21 +104,8 @@ class _CustomChartScreenState extends State<CustomChartScreen> {
             Container(
               child: ChartCard(
                 title: "Titulo",
-                child: FutureBuilder<List<BarChartSeries>>(
-                  initialData: chartData,
-                  future: fetchData(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      if (snapshot.hasData) {
-                        return BarChart(data: snapshot.requireData);
-                      }
-                      return Text("snapshot.data: ${snapshot.data}");
-                    } else if (snapshot.hasError) {
-                      return Text("Erro");
-                    } else {
-                      return Center(child: CircularProgressIndicator());
-                    }
-                  },
+                child: FutureBarChartBuilder(
+                  url: 'http://noseri-api.herokuapp.com/api/flutter/kwh',
                 ),
               ),
             ),

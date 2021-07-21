@@ -22,7 +22,11 @@ class _ChartCardState extends State<ChartCard> {
             children: [
               SizedBox(height: kSpaceBetweenCols),
               Text(widget.title, style: kChartLabelTextStyle),
-              Expanded(child: widget.child),
+              Expanded(
+                  child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: widget.child,
+              )),
             ],
           ),
         ),

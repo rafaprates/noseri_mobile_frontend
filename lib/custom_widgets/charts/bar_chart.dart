@@ -4,8 +4,25 @@ import 'package:noseri_app/models/bar_chart_series.dart';
 
 class BarChart extends StatelessWidget {
   final List<BarChartSeries> data;
+  //final String period;
 
   BarChart({required this.data});
+
+  String getYear(date) {
+    return date.toString().substring(0, 4);
+  }
+
+  String getMonth(date) {
+    return date.toString().substring(5, 7);
+  }
+
+  String getDay(date) {
+    return date.toString().substring(8, 10);
+  }
+
+  String getHour(date) {
+    return date.toString().substring(11, 13);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +30,7 @@ class BarChart extends StatelessWidget {
       charts.Series(
         id: "kWh",
         data: data,
-        domainFn: (BarChartSeries series, _) => series.day,
+        domainFn: (BarChartSeries series, _) => series.date,
         measureFn: (BarChartSeries series, _) => series.kwh,
         //colorFn: (KwhSeries series, _) => series.barColor,
         colorFn: (BarChartSeries series, _) =>

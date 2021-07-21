@@ -1,15 +1,15 @@
 class BarChartSeries {
-  final String day;
+  final String date;
   final double kwh;
 
   BarChartSeries({
-    required this.day,
+    required this.date,
     required this.kwh,
   });
 
   factory BarChartSeries.fromJson(Map<String, dynamic> json) {
     return BarChartSeries(
-      day: json["ts"],
+      date: json["ts"],
       kwh: json["kwh"],
     );
   }

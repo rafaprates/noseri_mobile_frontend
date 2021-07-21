@@ -1,6 +1,16 @@
-class kWhPerLoadData {
+class CircularChartSeries {
   final String load;
-  final int kWh;
+  final double kwh;
 
-  kWhPerLoadData(this.load, this.kWh);
+  CircularChartSeries({
+    required this.load,
+    required this.kwh,
+  });
+
+  factory CircularChartSeries.fromJson(Map<String, dynamic> json) {
+    return CircularChartSeries(
+      load: json["load"],
+      kwh: json["kwh"],
+    );
+  }
 }
