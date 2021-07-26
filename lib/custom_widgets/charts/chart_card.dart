@@ -16,7 +16,7 @@ class _ChartCardState extends State<ChartCard> {
     return Expanded(
       child: Card(
         child: Container(
-          height: 400.0,
+          height: 500.0,
           padding: EdgeInsets.all(8.0),
           child: Column(
             children: [

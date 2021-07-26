@@ -22,7 +22,7 @@ class _DateRangePickerState extends State<DateRangePicker> {
     final newDateRange = await showDateRangePicker(
       context: context,
       firstDate: DateTime(DateTime.now().year - 5),
-      lastDate: DateTime(DateTime.now().year + 5),
+      lastDate: DateTime(DateTime.now().year + 1),
       initialDateRange: dateRange ?? initialDateRange,
     );
 
@@ -36,9 +36,9 @@ class _DateRangePickerState extends State<DateRangePicker> {
       return 'De';
     } else {
       widget.networkHelper?.from =
-          '${dateRange?.start?.day}/${dateRange?.start?.month}/${dateRange?.start?.year}';
+          '${dateRange?.start?.day}-${dateRange?.start?.month}-${dateRange?.start?.year}';
       print(dateRange?.start);
-      return '${dateRange?.start?.day}/${dateRange?.start?.month}/${dateRange?.start?.year}';
+      return '${dateRange?.start?.day}-${dateRange?.start?.month}-${dateRange?.start?.year}';
     }
   }
 
@@ -47,8 +47,8 @@ class _DateRangePickerState extends State<DateRangePicker> {
       return 'Até';
     } else {
       widget.networkHelper?.until =
-          '${dateRange?.end?.day}/${dateRange?.end?.month}/${dateRange?.end?.year}';
-      return '${dateRange?.end?.day}/${dateRange?.end?.month}/${dateRange?.end?.year}';
+          '${dateRange?.end?.day}-${dateRange?.end?.month}-${dateRange?.end?.year}';
+      return '${dateRange?.end?.day}-${dateRange?.end?.month}-${dateRange?.end?.year}';
     }
   }
 

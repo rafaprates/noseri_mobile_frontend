@@ -25,9 +25,8 @@ class CircularChart extends StatelessWidget {
     return charts.PieChart(
       _getSeriesData(),
       animate: true,
-      defaultRenderer: new charts.ArcRendererConfig(
-          arcWidth: 200,
-          arcRendererDecorators: [new charts.ArcLabelDecorator()]),
+      behaviors: [new charts.DatumLegend()],
+      defaultRenderer: new charts.ArcRendererConfig(),
     );
   }
 }

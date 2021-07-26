@@ -18,10 +18,13 @@ class SummaryChartScreen extends StatefulWidget {
   _SummaryChartScreenState createState() => _SummaryChartScreenState();
 }
 
+String unidade = "kwh";
+
 class _SummaryChartScreenState extends State<SummaryChartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[300],
       appBar: AppBar(title: Text("NOSERI - UFMT")),
       body: ListView(
         padding: const EdgeInsets.all(8),
@@ -31,12 +34,46 @@ class _SummaryChartScreenState extends State<SummaryChartScreen> {
           SizedBox(height: kSpaceBetweenCols),
           info_summary_card(title: "Media diaria: ", value: "13"),
           SizedBox(height: kSpaceBetweenCols),
+          Row(
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Text(
+                    "Unidade",
+                  ),
+                ),
+              ),
+              Expanded(child: Container()),
+              ElevatedButton(
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Text("kWh"),
+                ),
+                onPressed: () {
+                  unidade = "kwh";
+                  setState(() {});
+                },
+              ),
+              SizedBox(width: 8.0),
+              ElevatedButton(
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Text(" R\$"),
+                ),
+                onPressed: () {
+                  unidade = "reais";
+                  setState(() {});
+                },
+              ),
+            ],
+          ),
           Container(
             child: ChartCard(
               title: "Hoje",
               child: FutureBarChartBuilder(
                 url:
-                    'http://noseri-api.herokuapp.com/api/flutter/kwh?fixedPeriod=day',
+                    'http://noseri-api.herokuapp.com/api/flutter/kwh?aggregator=by_hours_in_a_day&unidade=${unidade}',
               ),
             ),
           ),
@@ -45,7 +82,7 @@ class _SummaryChartScreenState extends State<SummaryChartScreen> {
               title: "Esta semana",
               child: FutureBarChartBuilder(
                 url:
-                    'http://noseri-api.herokuapp.com/api/flutter/kwh?fixedPeriod=week',
+                    'http://noseri-api.herokuapp.com/api/flutter/kwh?aggregator=by_days_in_a_week&unidade=${unidade}',
               ),
             ),
           ),
@@ -53,15 +90,17 @@ class _SummaryChartScreenState extends State<SummaryChartScreen> {
             child: ChartCard(
               title: "Este mes",
               child: FutureBarChartBuilder(
-                url: 'http://noseri-api.herokuapp.com/api/flutter/kwh',
+                url:
+                    'http://noseri-api.herokuapp.com/api/flutter/kwh?aggregator=by_days_in_a_month&unidade=${unidade}',
               ),
             ),
           ),
           Container(
             child: ChartCard(
-              title: "------",
+              title: "Pro carga neste mes",
               child: FutureCircularChartBuilder(
-                url: 'http://noseri-api.herokuapp.com/api/flutter/kwh',
+                url:
+                    'http://noseri-api.herokuapp.com/api/flutter/kwh?aggregator=by_load_in_a_month',
               ),
             ),
           ),

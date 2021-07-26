@@ -8,6 +8,8 @@ class BarChart extends StatelessWidget {
 
   BarChart({required this.data});
 
+  var baz;
+
   String getYear(date) {
     return date.toString().substring(0, 4);
   }
@@ -24,6 +26,10 @@ class BarChart extends StatelessWidget {
     return date.toString().substring(11, 13);
   }
 
+  String getYearMonthYear(String date) {
+    return date.toString().substring(0, 10);
+  }
+
   @override
   Widget build(BuildContext context) {
     List<charts.Series<BarChartSeries, String>> series = [
@@ -32,7 +38,6 @@ class BarChart extends StatelessWidget {
         data: data,
         domainFn: (BarChartSeries series, _) => series.date,
         measureFn: (BarChartSeries series, _) => series.kwh,
-        //colorFn: (KwhSeries series, _) => series.barColor,
         colorFn: (BarChartSeries series, _) =>
             charts.ColorUtil.fromDartColor(Colors.blue),
       )

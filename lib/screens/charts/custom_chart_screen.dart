@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:noseri_app/custom_widgets/charts/chart_card.dart';
 import 'package:noseri_app/custom_widgets/charts/future_bar_chart_buider.dart';
 import 'package:noseri_app/custom_widgets/date_range_picker.dart';
@@ -18,58 +15,14 @@ class CustomChartScreen extends StatefulWidget {
 class _CustomChartScreenState extends State<CustomChartScreen> {
   NetworkHelper? networkHelper = NetworkHelper();
 
-  Future<String> getData() async {
-    // Aceita String url como entrada
-    // Retorna o corpo da resposta
-    String url =
-        'http://noseri-api.herokuapp.com/api/flutter/kwh?load=ar-condicionado';
-
-    final response = await http.get(
-      Uri.parse(url),
-    );
-
-    if (response.statusCode == 200) {
-      return response.body;
-    } else {
-      throw Exception('Failed to load data');
-    }
-  }
-
-  Future<List<BarChartSeries>> fetchData() async {
-    String url =
-        'http://noseri-api.herokuapp.com/api/flutter/kwh?load=ar-condicionado';
-
-    final response = await http.get(
-      Uri.parse(url),
-    );
-
-    if (response.statusCode == 200) {
-      var jsonData = jsonDecode(response.body);
-      List<BarChartSeries> dataList = [];
-      for (var d in jsonData) {
-        BarChartSeries data =
-            BarChartSeries(date: d["timestamp"], kwh: d["kwh"]);
-        dataList.add(data);
-        print("data: ${data.date}");
-      }
-      return dataList;
-    } else {
-      throw Exception('Failed to load album');
-    }
-  }
-
-  parseToJson(data) {
-    return jsonDecode(data);
-  }
-
-  fromJsonToBarChartSeries(jsonData) {
-    return BarChartSeries.fromJson(jsonData);
-  }
-
+  //Template Data
   List<BarChartSeries> chartData = [
     BarChartSeries(date: "", kwh: 0.0),
     BarChartSeries(date: "", kwh: 0.0),
   ];
+
+  String url = "http://noseri-api.herokuapp.com/api/flutter/kwh";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,8 +48,31 @@ class _CustomChartScreenState extends State<CustomChartScreen> {
             ElevatedButton(
               child: Text('Atualizar gráfico'),
               onPressed: () {
-                NetworkHelper().fetchBarData(
-                    'http://noseri-api.herokuapp.com/api/flutter/kwh');
+                // Updates the Url to fetch the right data.
+                String? load = networkHelper!.load;
+
+                String formatDate(String date) {
+                  List<String> splitDate = date.split("-");
+                  String day = splitDate[0];
+                  String month = splitDate[1];
+                  String year = splitDate[2];
+
+                  if (day.length < 2) {
+                    day = "0" + day;
+                  }
+
+                  if (month.length < 2) {
+                    month = "0" + month;
+                  }
+
+                  return "${year}-${month}-${day}";
+                }
+
+                String from = formatDate(networkHelper!.from!.split(" ")[0]);
+                String until = formatDate(networkHelper!.until!.split(" ")[0]);
+
+                url =
+                    "http://noseri-api.herokuapp.com/api/flutter/kwh?load=${load}&ti=${from}&tf=${until}&aggregator=by_day_month_year&unidade=kwh";
                 setState(() {});
               },
             ),
@@ -104,9 +80,7 @@ class _CustomChartScreenState extends State<CustomChartScreen> {
             Container(
               child: ChartCard(
                 title: "Titulo",
-                child: FutureBarChartBuilder(
-                  url: 'http://noseri-api.herokuapp.com/api/flutter/kwh',
-                ),
+                child: FutureBarChartBuilder(url: url),
               ),
             ),
           ],

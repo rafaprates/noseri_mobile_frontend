@@ -9,8 +9,8 @@ class CircularChartSeries {
 
   factory CircularChartSeries.fromJson(Map<String, dynamic> json) {
     return CircularChartSeries(
-      load: json["load"],
-      kwh: json["kwh"],
+      load: json["load_name"],
+      kwh: json["kwh_sum"],
     );
   }
 }

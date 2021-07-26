@@ -33,9 +33,8 @@ class _loadDropdownButtonState extends State<loadDropdownButton> {
       },
       items: <String>[
         'Geladeira',
-        'Ar-condicionado',
-        'Refrigerador',
-        'Computador'
+        'chuveiro',
+        'ar-condicionado',
       ].map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
