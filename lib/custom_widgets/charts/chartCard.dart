@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:noseri_app/utilities/constants.dart';
 
+// Cartao responsavel por conter os graficos.
 class ChartCard extends StatefulWidget {
   final String title;
   final child;
@@ -22,11 +23,7 @@ class _ChartCardState extends State<ChartCard> {
             children: [
               SizedBox(height: kSpaceBetweenCols),
               Text(widget.title, style: kChartLabelTextStyle),
-              Expanded(
-                  child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: widget.child,
-              )),
+              Expanded(child: widget.child),
             ],
           ),
         ),

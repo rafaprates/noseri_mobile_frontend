@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:noseri_app/custom_widgets/charts/circular_chart.dart';
-import 'package:noseri_app/models/circular_chart_series.dart';
+import 'package:noseri_app/custom_widgets/lixeira/CircularChartSeries.dart';
+import 'package:noseri_app/custom_widgets/lixeira/circular.dart';
 import 'package:noseri_app/services/networking.dart';
 
 class FutureCircularChartBuilder extends StatelessWidget {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:noseri_app/screens/OptionsScreen.dart';
 import 'package:noseri_app/screens/charts/custom_chart_screen.dart';
-import 'package:noseri_app/screens/charts/summary_chart_screen.dart';
+import 'package:noseri_app/screens/charts/summaryChartScreen.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -14,6 +15,7 @@ class _MainScreenState extends State<MainScreen> {
   List<Widget> pageList = <Widget>[
     SummaryChartScreen(),
     CustomChartScreen(),
+    OptionsScreen(),
   ];
 
   @override

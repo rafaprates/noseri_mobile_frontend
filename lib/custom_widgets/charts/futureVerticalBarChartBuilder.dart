@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:noseri_app/models/bar_chart_series.dart';
+import 'package:noseri_app/models/VerticalBarChartSeries.dart';
 import 'package:noseri_app/services/networking.dart';
 
-import 'bar_chart.dart';
+import 'verticalBarChart.dart';
 
-class FutureBarChartBuilder extends StatelessWidget {
-  const FutureBarChartBuilder({
+// Responsavel por buscar os dados no servidor e construir o UI quando
+// os dados forem recebidos.
+class FutureVerticalBarChartBuilder extends StatelessWidget {
+  const FutureVerticalBarChartBuilder({
     required this.url,
   });
 
@@ -14,13 +16,13 @@ class FutureBarChartBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<BarChartSeries>>(
+    return FutureBuilder<List<VerticalBarChartSeries>>(
       //initialData: chartData,
-      future: NetworkHelper().fetchBarData(url),
+      future: NetworkHelper().fetchVerticalBarData(url),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasData) {
-            return BarChart(data: snapshot.requireData);
+            return VerticalBarChart(data: snapshot.requireData);
           }
           return Text("snapshot.data: ${snapshot.data}");
         } else if (snapshot.hasError) {

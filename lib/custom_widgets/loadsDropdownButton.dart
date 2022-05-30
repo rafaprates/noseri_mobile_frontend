@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:noseri_app/services/networking.dart';
 import 'package:noseri_app/utilities/constants.dart';
 
-class loadDropdownButton extends StatefulWidget {
-  NetworkHelper? networkHelper;
-  loadDropdownButton(this.networkHelper);
+// Botao que oferece ao usuario uma lista de cargas para que este escolha
+// uma entre as opcoes listadas.
+class LoadsDropdownButton extends StatefulWidget {
+  List<String> loadNames = [];
+  //NetworkHelper? networkHelper;
+  LoadsDropdownButton(this.loadNames);
 
   @override
-  _loadDropdownButtonState createState() => _loadDropdownButtonState();
+  _LoadsDropdownButtonState createState() => _LoadsDropdownButtonState();
 }
 
-class _loadDropdownButtonState extends State<loadDropdownButton> {
-  String dropdownValue = 'Geladeira';
+class _LoadsDropdownButtonState extends State<LoadsDropdownButton> {
   @override
   Widget build(BuildContext context) {
-    widget.networkHelper?.load = dropdownValue;
+    //widget.networkHelper?.load = dropdownValue;
+    String dropdownValue;
+    dropdownValue = widget.loadNames.first;
     return DropdownButton<String>(
       isExpanded: true,
       value: dropdownValue,
@@ -31,11 +34,7 @@ class _loadDropdownButtonState extends State<loadDropdownButton> {
           dropdownValue = newValue!;
         });
       },
-      items: <String>[
-        'Geladeira',
-        'chuveiro',
-        'ar-condicionado',
-      ].map<DropdownMenuItem<String>>((String value) {
+      items: widget.loadNames.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(

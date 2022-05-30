@@ -1,34 +1,12 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
-import 'package:noseri_app/models/bar_chart_series.dart';
+import 'package:noseri_app/models/BarChartSeries.dart';
 
-class BarChart extends StatelessWidget {
+// Define o grafico de barras horizontal.
+class HorizontalBarChart extends StatelessWidget {
   final List<BarChartSeries> data;
-  //final String period;
 
-  BarChart({required this.data});
-
-  var baz;
-
-  String getYear(date) {
-    return date.toString().substring(0, 4);
-  }
-
-  String getMonth(date) {
-    return date.toString().substring(5, 7);
-  }
-
-  String getDay(date) {
-    return date.toString().substring(8, 10);
-  }
-
-  String getHour(date) {
-    return date.toString().substring(11, 13);
-  }
-
-  String getYearMonthYear(String date) {
-    return date.toString().substring(0, 10);
-  }
+  HorizontalBarChart({required this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +24,7 @@ class BarChart extends StatelessWidget {
     return charts.BarChart(
       series,
       animate: true,
+      vertical: true,
       domainAxis: charts.OrdinalAxisSpec(
         renderSpec: charts.SmallTickRendererSpec(labelRotation: 60),
       ),

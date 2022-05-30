@@ -1,6 +1,6 @@
 /*
 import 'package:flutter/material.dart';
-import 'package:noseri_app/screens/charts/summary_chart_screen.dart';
+import 'package:noseri_app/screens/charts/summaryChartScreen.dart';
 import 'package:noseri_app/screens/home_screen.dart';
 
 class BottomNavigation extends StatefulWidget {
